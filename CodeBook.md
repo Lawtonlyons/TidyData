@@ -1,54 +1,35 @@
-CodeBook for the tidy dataset
+Getting and Cleaning Data: Course Project
+=========================================
 
-Data source
+Introduction
+------------
+This repository contains my work for the course project for the Coursera course "Getting and Cleaning data", part of the Data Science specialization.
+What follows first are my notes on the original data.
 
-This dataset is derived from the "Human Activity Recognition Using Smartphones Data Set" which was originally made avaiable here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+About the raw data
+------------------
 
-Feature Selection
+The features (561 of them) are unlabeled and can be found in the x_test.txt. 
+The activity labels are in the y_test.txt file.
+The test subjects are in the subject_test.txt file.
 
-I refer you to the README and features.txt files in the original dataset to learn more about the feature selection for this dataset. And there you will find the follow description:
+The same holds for the training set.
 
-The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz.
+About the script and the tidy dataset
+-------------------------------------
+I created a script called run_analysis.R which will merge the test and training sets together.
+Prerequisites for this script:
 
-Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag).
+1. the UCI HAR Dataset must be extracted and..
+2. the UCI HAR Dataset must be availble in a directory called "UCI HAR Dataset"
 
-Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals).
+After merging testing and training, labels are added and only columns that have to do with mean and standard deviation are kept.
 
-The reasoning behind my selection of features is that the assignment explicitly states "Extracts only the measurements on the mean and standard deviation for each measurement." To be complete, I included all variables having to do with mean or standard deviation.
+Lastly, the script will create a tidy data set containing the means of all the columns per test subject and per activity.
+This tidy dataset will be written to a tab-delimited file called tidy.txt, which can also be found in this repository.
 
-In short, for this derived dataset, these signals were used to estimate variables of the feature vector for each pattern:
-'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
-
-tBodyAcc-XYZ
-tGravityAcc-XYZ
-tBodyAccJerk-XYZ
-tBodyGyro-XYZ
-tBodyGyroJerk-XYZ
-tBodyAccMag
-tGravityAccMag
-tBodyAccJerkMag
-tBodyGyroMag
-tBodyGyroJerkMag
-fBodyAcc-XYZ
-fBodyAccJerk-XYZ
-fBodyGyro-XYZ
-fBodyAccMag
-fBodyAccJerkMag
-fBodyGyroMag
-fBodyGyroJerkMag
-The set of variables that were estimated (and kept for this assignment) from these signals are:
-
-mean(): Mean value
-std(): Standard deviation
-Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
-
-gravityMean
-tBodyAccMean
-tBodyAccJerkMean
-tBodyGyroMean
-tBodyGyroJerkMean
-Other estimates have been removed for the purpose of this excercise.
-
-Note: features are normalized and bounded within [-1,1].
+About the Code Book
+-------------------
+The CodeBook.md file explains the transformations performed and the resulting data and variables.
 
 The resulting variable names are of the following form: tbodyaccmeanx, which means the mean value of tBodyAcc-XYZ.
