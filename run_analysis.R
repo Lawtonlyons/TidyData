@@ -1,27 +1,26 @@
-
 # 1. Downloads data, and merges the training and the test sets to create one data set.
 
 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileURL, destfile = "./wearable.zip")
 list.files()
 getwd()
-
-xtrain <- read.table("C:/Users/AndrewL/Documents/dataset/train/X_train.txt")
-xtest <- read.table("C:/Users/AndrewL/Documents/dataset/test/X_test.txt")
+unzip("./wearable.zip", exdir = "./wearable_dataset")
+xtrain <- read.table("./wearable_dataset/UCI HAR Dataset/train/X_train.txt")
+xtest <- read.table("./wearable_dataset/UCI HAR Dataset/test/X_test.txt")
 X <- rbind(xtrain, xtest)
 head(X)
 
-subtrain <- read.table("C:/Users/AndrewL/Documents/dataset/train/subject_train.txt")
-subtest <- read.table("C:/Users/AndrewL/Documents/dataset/test/subject_test.txt")
+subtrain <- read.table("./wearable_dataset/UCI HAR Dataset/train/subject_train.txt")
+subtest <- read.table("./wearable_dataset/UCI HAR Dataset/test/subject_test.txt")
 S <- rbind(subtrain, subtest)
 
-ytrain <- read.table("C:/Users/AndrewL/Documents/dataset/train/y_train.txt")
-ytest <- read.table("C:/Users/AndrewL/Documents/dataset/test/y_test.txt")
+ytrain <- read.table("./wearable_dataset/UCI HAR Dataset/train/y_train.txt")
+ytest <- read.table("./wearable_dataset/UCI HAR Dataset/test/y_test.txt")
 Y <- rbind(ytrain, ytest)
 
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 
-features <- read.table("C:/Users/AndrewL/Documents/dataset/features.txt")
+features <- read.table("./wearable_dataset/UCI HAR Dataset/features.txt")
 indices_of_good_features <- grep("-mean\\(\\)|-std\\(\\)", features[, 2])
 X <- X[, indices_of_good_features]
 names(X) <- features[indices_of_good_features, 2]
@@ -30,7 +29,7 @@ names(X) <- tolower(names(X))  # see last slide of the lecture Editing Text Vari
 
 # 3. Uses descriptive activity names to name the activities in the data set
 
-activities <- read.table("C:/Users/AndrewL/Documents/dataset/activity_labels.txt")
+activities <- read.table("./wearable_dataset/UCI HAR Dataset/activity_labels.txt")
 activities[, 2] = gsub("_", "", tolower(as.character(activities[, 2])))
 Y[,1] = activities[Y[,1], 2]
 names(Y) <- "activity"
